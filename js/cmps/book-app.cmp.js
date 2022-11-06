@@ -5,8 +5,10 @@ import bookDetails from "./book-details.cmp.js"
 
 export default {
     template:`
-        <book-list @select-book="selectBook" :books="books"/>
-        <book-details v-if="selectedBook" :book="selectedBook"/>
+        <main>
+            <book-list v-if="!selectedBook" @select-book="selectBook" :books="books"/>
+            <book-details v-else="selectedBook" :book="selectedBook"/>
+        </main>
     `,
     data(){
         return {
@@ -14,21 +16,17 @@ export default {
             selectedBook: null
         }
     },
-    computed:{
+    created() {
+        this.books = bookService.query()
     },
     methods: {
-        selectBook(id) {
-            this.selectedBook = this.getBookById(id)
+        selectBook(book) {
+            this.selectedBook = book
         },
-        getBookById(id) {
-            return this.books.find(book => book.id === id)
-        }
     },
     components: {
         bookList,
         bookDetails, 
     },
-    created() {
-        this.books = bookService.query()
-    },
+
 }

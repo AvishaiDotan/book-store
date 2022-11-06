@@ -1,15 +1,16 @@
 
 export default {
     template:`
-        <header>i'm Header</header>
+        <header>
+            <div>
+                <img :src="getIcon">
+                <h1>Miss's Book Shop</h1>
+            </div>
+        </header>
     `,
-    data(){
-        return {
-           
+    computed: {
+        getIcon() {
+            return `../img/icons/open-book.png`
         }
-    },
-    computed:{
-    },
-    methods: {
     }
 }

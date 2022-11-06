@@ -2,29 +2,20 @@ export default {
     props:['book'],
     template:`
 
-        <article>
+        <article class="book-prev">
             <h3>{{book.title}}</h3>
             <img :src="book.thumbnail"/>
             <p>
-                <span>{{getAmount}}</span>
+                <span>{{book.listPrice.amount}}</span>
                 <span>{{getCurrency}}</span>
             </p>
         </article>
 
     `,
-    data(){
-        return {
-           
-        }
-    },
     computed:{
-        getAmount() {
-            const amount = this.book.listPrice.amount
-            return `${amount}`
-        },
         getCurrency() {
-            const currency = this.book.listPrice.currencyCode
-            return `${this.getCurrencyIcon(currency)}`
+            const {currencyCode} = this.book.listPrice
+            return this.getCurrencyIcon(currencyCode)
         }
     },
     methods: {

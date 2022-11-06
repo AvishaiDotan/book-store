@@ -1,3 +1,5 @@
+import bookDesc from "./book-desc.cmp.js"
+
 export default {
     props: ['book'],
     template:`
@@ -7,8 +9,10 @@ export default {
             <p>{{ book.subtitle }}</p>
             <p>{{ getAuthors }}</p>
             <p>{{ getBookLength }}</p>
+            <p>{{ getBookCategories }}</p>
             <p>{{ getBookPublishedDate }}</p>
-            <p>{{ book.language }}</p>    
+            <p>{{ book.language }}</p>   
+            <book-desc :description="book.description"/>
         </section>
 
     `,
@@ -27,6 +31,9 @@ export default {
             else if (pageCount >= 200) return 'Decent Reading'
             else if (pageCount < 200) return 'Light Reading'
         },
+        getBookCategories() {
+            return this.book.categories.map(category => `${category} `).join('')
+        },
         getBookPublishedDate() {
             const publishedDate = 2022 - +this.book.publishedDate
             let publishedDateStr = publishedDate + ' years ago'
@@ -40,8 +47,8 @@ export default {
             return `../img/icons/discount.png`
         },
         getStyleByPrice() {
-            const amount = this.book.listPrice.amount
-            const currency = this.book.listPrice.currency
+            const {amount} = this.book.listPrice
+            // const currency = this.book.listPrice.currency
 
             // this.getPriceInDollars(amount, currency)
 
@@ -65,6 +72,9 @@ export default {
                 }
             },
         },
+        components: {
+            bookDesc,
+        }
 
     
 }

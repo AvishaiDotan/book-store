@@ -6,7 +6,7 @@ const { createApp } = Vue
 
 const app = createApp({
     template:`
-        <app-header/>
+        <app-header class="main-layout full" />
         <book-app/>
         <app-footer/>
     `,

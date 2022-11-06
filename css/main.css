@@ -1,15 +1,91 @@
+@import url(../css/reset.css);
+
+@font-face {
+    font-family: PoorStory-Regular;
+    src: url(../fonts/PoorStory-Regular.ttf);
+}
+
+@font-face {
+    font-family: Catamaran-Regular;
+    src: url(../fonts/Catamaran-Regular.ttf);
+}
+
+@font-face {
+    font-family: Catamaran-Bold;
+    src: url(../fonts/Catamaran-Bold.ttf);
+}
+
+@font-face {
+    font-family: Catamaran-Thin;
+    src: url(../fonts/Catamaran-Thin.ttf);
+}
+
 * {
     box-sizing: border-box;
 }
 
-h1, h2, h3, h4, h5, h6, body {
-    margin: 0;
+html {
+    font-family: Catamaran-Regular, sans-serif;
+}
+
+body {
+    background: linear-gradient(45deg, rgba(76,57,78,1) 0%, rgba(255,255,255,1) 100%);
+}
+
+
+/* Cmps */
+header {
+    font-family: PoorStory-Regular;
+    height: 130px;
+    background-color: #4c394e;
+    box-shadow: 1px -9px 1px #322534 inset;
+    display: flex;
+}
+
+header h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    color: white;
+}
+
+header img {
+    width: 60PX;
+    padding-inline: 10px;
+    filter: invert(1);
+    transition: 1s;
+}
+
+header img:hover {
+    transform: rotate(360deg);
+    cursor: pointer;
+    width: 130px;
+    margin-inline-end: 50px;
+}
+
+header div {
+    justify-content: flex-start;
+    align-items: center;
+    display: flex;
+}
+
+
+.main-layout > *:not(.full) {
+    margin-right: auto;
+    margin-left: auto;
+    width: 980px;
+}
+
+article {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    text-align: center;
 }
 
 ul {
     list-style-type: none;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     padding: 10px;
     gap: 10px;
 }
@@ -17,6 +93,8 @@ ul {
 li {
     padding: 10px;
     background-color: aliceblue;
+    border-top-right-radius: 0.2rem;
+    border-top-left-radius: 0.2rem;
 }
 
 li:hover {
@@ -25,7 +103,30 @@ li:hover {
 
 article img {
     width: 100%;
+    padding-inline: 20px;
+    padding-block-end: 20px;
+    transition: 0.2s;
+    overflow: hidden;
 }
+
+article:hover img {
+    transform: scale(1.02);
+    object-fit: cover;
+}
+
+article p {
+    align-self: end;
+    font-family: Catamaran-Thin;
+}
+
+article h3 {
+    font-family: Catamaran-Bold;
+    padding-block: 5px;
+    text-transform: capitalize;
+}
+
+
+
 
 .red {
     background-color: red;
