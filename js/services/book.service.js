@@ -481,7 +481,6 @@ function _createBooks() {
     let books = utilService.loadFromStorage(BOOKS_KEY)
     if (!books || !books.length) {
         books = booksData
-        console.log(books);
         utilService.saveToStorage(BOOKS_KEY, books)
     }
     return books

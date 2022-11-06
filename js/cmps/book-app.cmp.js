@@ -28,7 +28,7 @@ export default {
             this.selectedBook = null
         },
         deleteBook() {
-            const {id} = this.selectedBook
+            const id = this.selectedBook.id
             this.selectedBook = null
             bookService.remove(id)
             this.books = bookService.query()
