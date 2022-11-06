@@ -1,0 +1,36 @@
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, body {
+    margin: 0;
+}
+
+ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    padding: 10px;
+    gap: 10px;
+}
+
+li {
+    padding: 10px;
+    background-color: aliceblue;
+}
+
+li:hover {
+    cursor: pointer;
+}
+
+article img {
+    width: 100%;
+}
+
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
+}
