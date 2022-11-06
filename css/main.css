@@ -20,16 +20,21 @@
     src: url(../fonts/Catamaran-Thin.ttf);
 }
 
+:root {
+    /* color pallet */
+    --clr-primary-strong: #022840;
+    --clr-primary-light: #D9D5D2;
+    --clr-primary: #023059;
+    --clr-secondary: white;
+}
+
 * {
     box-sizing: border-box;
 }
 
 html {
     font-family: Catamaran-Regular, sans-serif;
-}
-
-body {
-    background: linear-gradient(45deg, rgba(76,57,78,1) 0%, rgba(255,255,255,1) 100%);
+    color: var(--clr-primary-strong);
 }
 
 
@@ -37,28 +42,28 @@ body {
 header {
     font-family: PoorStory-Regular;
     height: 130px;
-    background-color: #4c394e;
-    box-shadow: 1px -9px 1px #322534 inset;
+    background-color: var(--clr-primary);
+    box-shadow: inset -1px -7px 1px var(--clr-secondary);
     display: flex;
 }
 
 header h1 {
     font-size: 4rem;
     font-weight: 900;
-    color: white;
+    color: var(--clr-secondary);
 }
 
 header img {
     width: 60PX;
     padding-inline: 10px;
-    filter: invert(1);
     transition: 1s;
+    filter: invert(1);
 }
 
 header img:hover {
     transform: rotate(360deg);
     cursor: pointer;
-    width: 130px;
+    width: 12vh;
     margin-inline-end: 50px;
 }
 
@@ -83,6 +88,7 @@ article {
 }
 
 ul {
+    margin-block: 100px;
     list-style-type: none;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -92,9 +98,10 @@ ul {
 
 li {
     padding: 10px;
-    background-color: aliceblue;
+    background-color: var(--clr-secondary);
     border-top-right-radius: 0.2rem;
     border-top-left-radius: 0.2rem;
+    border: 0.2px solid var(--clr-primary-strong);
 }
 
 li:hover {
@@ -116,13 +123,95 @@ article:hover img {
 
 article p {
     align-self: end;
-    font-family: Catamaran-Thin;
 }
 
-article h3 {
+article h3, .book-details h3 {
     font-family: Catamaran-Bold;
     padding-block: 5px;
     text-transform: capitalize;
+    text-align: center;
+}
+
+
+/* Book-details */
+.book-details {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    height: calc(100vh - 390px);
+}
+
+.book-details .details {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    height: 416px;
+}
+
+.book-details .details strong {
+    font-family: Catamaran-Bold;
+    padding-block: 5px;
+    text-transform: capitalize;
+}
+
+.actions-container {
+    height: 30px;
+    background-color: var(--clr-secondary);
+    border-radius: 2em;
+    border: 0.2px solid var(--clr-primary-strong);
+    width: max-content;
+    display: flex;
+}
+
+.actions-container button {
+    border: 0;
+    background-color: transparent;
+}
+
+.actions-container button:hover {
+    cursor: pointer;
+}
+
+.actions-container button:hover:last-child {
+    background-color: var(--clr-primary-light);
+    border-top-right-radius: 2em;
+    border-bottom-right-radius: 2em;
+}
+
+.actions-container button:hover:first {
+    background-color: var(--clr-primary-light);
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
+}
+
+.actions-container button:hover:first-child {
+    background-color: var(--clr-primary-light);
+    border-top-left-radius: 2em;
+    border-bottom-left-radius: 2em;
+}
+
+.actions-container button:not(:last-child, :first-child) {
+    border-inline: 0.5px solid var(--clr-primary-strong)
+}
+
+.actions-container button:not(:last-child, :first-child):hover {
+    background-color: var(--clr-primary-light);
+}
+
+.on-sale-icon {
+    position: absolute;
+    width: 50px;
+}
+
+footer {
+    height: 260px;
+    background-color: var(--clr-primary);
+}
+
+footer p {
+    color: var(--clr-secondary);
+    padding: 30px;
+}
 }
 
 

@@ -3,16 +3,23 @@ import bookDesc from "./book-desc.cmp.js"
 export default {
     props: ['book'],
     template:`
-        <section :class="getStyleByPrice">
-            <img v-if="book.listPrice.isOnSale" :src="getDiscountIcon"/>
-            <h3>{{ book.title }}</h3>
-            <p>{{ book.subtitle }}</p>
-            <p>{{ getAuthors }}</p>
-            <p>{{ getBookLength }}</p>
-            <p>{{ getBookCategories }}</p>
-            <p>{{ getBookPublishedDate }}</p>
-            <p>{{ book.language }}</p>   
-            <book-desc :description="book.description"/>
+        <section :class="getStyleByPrice" class="book-details">
+            <div>
+                <h3><strong>Title</strong> {{ book.title }}</h3>
+                <div>
+                    <img class="on-sale-icon" v-if="book.listPrice.isOnSale" :src="getDiscountIcon"/>
+                    <img :src="book.thumbnail"/>
+                </div>
+            </div>
+            <div class="details">
+                <p><strong>Abstract</strong> {{ book.subtitle }}</p>
+                <p><strong>Authors</strong> {{ getAuthors }}</p>
+                <p><strong>Pages</strong> {{ getBookLength }}</p>
+                <p><strong>Category</strong> {{ getBookCategories }}</p>
+                <p><strong>Published Date</strong> {{ getBookPublishedDate }}</p>
+                <p><strong>Language</strong> {{ book.language }}</p>   
+                <book-desc :description="book.description"/>
+            </div>
         </section>
 
     `,

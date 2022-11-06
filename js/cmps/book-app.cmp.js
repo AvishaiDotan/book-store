@@ -7,7 +7,7 @@ export default {
     template:`
         <main>
             <book-list v-if="!selectedBook" @select-book="selectBook" :books="books"/>
-            <book-details v-else="selectedBook" :book="selectedBook"/>
+            <book-details class="book-details" v-else="selectedBook" :book="selectedBook"/>
         </main>
     `,
     data(){

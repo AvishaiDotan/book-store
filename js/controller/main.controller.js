@@ -8,7 +8,7 @@ const app = createApp({
     template:`
         <app-header class="main-layout full" />
         <book-app/>
-        <app-footer/>
+        <app-footer class="full main-layout">
     `,
     data() {
         return {
