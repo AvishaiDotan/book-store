@@ -18,7 +18,7 @@ export default {
                 <p><strong>Category</strong> {{ getBookCategories }}</p>
                 <p><strong>Published Date</strong> {{ getBookPublishedDate }}</p>
                 <p><strong>Language</strong> {{ book.language }}</p>   
-                <book-desc :description="book.description"/>
+                <book-desc @close="$emit('close')" @click="$emit('delete')" :description="book.description"/>
             </div>
         </section>
 

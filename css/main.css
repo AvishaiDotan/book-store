@@ -73,6 +73,39 @@ header div {
     display: flex;
 }
 
+header label {
+    background-color: white;
+    border-radius: 2em;
+    border: 0.2px solid var(--clr-primary-strong);
+    display: flex;
+    height: 32px;
+}
+
+header label input,  header label button{
+    background-color: transparent;
+    border: 0;
+}
+
+header label button:hover {
+    cursor: pointer;
+    background-color: #D9D5D2;
+    border-top-right-radius: 2em;
+    border-bottom-right-radius: 2em;
+}
+
+header label input:hover {
+    cursor: pointer;
+}
+
+header label input:focus {
+    outline: 0;
+}
+
+header div:first-child {
+    display: flex;
+    justify-content: space-between;
+}
+
 
 .main-layout > *:not(.full) {
     margin-right: auto;

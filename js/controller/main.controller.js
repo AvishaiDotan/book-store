@@ -6,18 +6,19 @@ const { createApp } = Vue
 
 const app = createApp({
     template:`
-        <app-header class="main-layout full" />
-        <book-app/>
-        <app-footer class="full main-layout">
+        <app-header @set-filter="setFilter" class="main-layout full" />
+        <book-app :filter-by="filterBy"/>
+        <app-footer class="full main-layout" />
     `,
     data() {
         return {
-            
+            filterBy: {}
         }
     },
     methods: {
-    },
-    computed:{
+        setFilter(filter) {
+            this.filterBy = filter
+        },
     },
     components: {
         bookApp,

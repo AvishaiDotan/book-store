@@ -6,8 +6,8 @@ export default {
             <h3 v-else> {{description}}</h3>
             <div className="actions-container">
                 <button @click="isDescExpanded = true">Read More</button>
-                <button @click="isDescExpanded = true">Close</button>
-                <button @click="isDescExpanded = true">Delete</button>
+                <button @click="$emit('close')">Close</button>
+                <button @click="$emit('delete')">Delete</button>
             </div>
             
         </section>
