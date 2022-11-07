@@ -2,10 +2,15 @@ import { bookService } from '../services/book.service.js'
 import { eventBus } from '../services/event-bus.service.js'
 
 import bookList from '../cmps/book-list.cmp.js'
+import booksFilter from '../cmps/books-filter.cmp.js'
 
 export default {
     template:`
-            <book-list :books="booksToShow"/>
+            <section class="book-app main-layout">
+                <books-filter/>
+                <book-list :books="booksToShow"/>
+            </section>
+
     `,
     data(){
         return {
@@ -23,20 +28,6 @@ export default {
             this.filterBy = filter  
         })
     },
-    methods: {
-        selectBook(book) {
-            this.selectedBook = book
-        },
-        closeBookDetails() {
-            this.selectedBook = null
-        },
-        deleteBook() {
-            const id = this.selectedBook.id
-            this.selectedBook = null
-            bookService.remove(id)
-            // this.books = bookService.query()
-        }
-    },
     computed: {
         booksToShow(){
             if (!this.filterBy.price) return this.books
@@ -46,6 +37,7 @@ export default {
     },
     components: {
         bookList,
+        booksFilter
     },
 
 }

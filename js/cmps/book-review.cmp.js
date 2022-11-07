@@ -18,7 +18,15 @@ export default {
             bookService.deleteReview(this.bookId, this.review.id)
                 .then(book => {
                     this.$emit('update-book', book)
+                    const msg = {
+                        txt: `Review Has Deleted`,
+                        type: 'success',
+                    }
+                    
+                    eventBus.emit('user-msg', msg)
                 })
+
+
             
         }
     },

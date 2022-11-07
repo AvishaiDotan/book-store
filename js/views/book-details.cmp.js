@@ -5,36 +5,34 @@ import bookDesc from "../cmps/book-desc.cmp.js"
 export default {
     props:['id'],
     template: `
-        <section v-if="book" :class="getStyleByPrice" class="book-details">
-            <div>
-                <h3><strong>Title</strong> {{ book.title }}</h3>
+        <section v-if="book" :class="getStyleByPrice" class="main-layout book-layout">
+            <div class="book-details">
                 <div>
-                    <img class="on-sale-icon" v-if="book.listPrice.isOnSale" :src="getDiscountIcon"/>
-                    <img :src="book.thumbnail"/>
+                    <h3><strong>Title</strong> {{ book.title }}</h3>
+                    <div>
+                        <img class="on-sale-icon" v-if="book.listPrice.isOnSale" :src="getDiscountIcon"/>
+                        <img :src="book.thumbnail"/>
+                    </div>
                 </div>
-            </div>
-            <div class="details">
-                <p><strong>Abstract</strong> {{ book.subtitle }}</p>
-                <p><strong>Authors</strong> {{ getAuthors }}</p>
-                <p><strong>Price</strong> {{ getPrice }}</p>
-                <p><strong>Pages</strong> {{ getBookLength }}</p>
-                <p><strong>Category</strong> {{ getBookCategories }}</p>
-                <p><strong>Published Date</strong> {{ getBookPublishedDate }}</p>
-                <p><strong>Language</strong> {{ book.language }}</p>   
-                <book-desc :book="book"/>
 
-                <button @click="goToReviews">
-                    <router-link :to="'/bookReviews/' + this.book.id">Add Review</router-link>
-                </button>
-                <!-- <button @click="goToReviews">add review</button> -->
-                <div className="admin-actions">
-                    <button @click.stop="goToApp">Return</button>
-                    <button @click.stop="deleteBook">Delete</button>
+                <div class="details">
+                    <p><strong>Abstract</strong> {{ book.subtitle }}</p>
+                    <p><strong>Authors</strong> {{ getAuthors }}</p>
+                    <p><strong>Price</strong> {{ getPrice }}</p>
+                    <p><strong>Pages</strong> {{ getBookLength }}</p>
+                    <p><strong>Category</strong> {{ getBookCategories }}</p>
+                    <p><strong>Published Date</strong> {{ getBookPublishedDate }}</p>
+                    <p><strong>Language</strong> {{ book.language }}</p>   
+                    <book-desc :book="book"/>
+
+                    <button @click="goToReviews">add review</button>
+                    <div className="admin-actions">
+                        <button @click.stop="goToApp">Return</button>
+                        <button @click.stop="deleteBook">Delete</button>
+                    </div>
                 </div>
+            
             </div>
-
-            <!-- <h4>Authors</h4>
-            <span v-for="author in book.authors">{{author}}</span> -->
         </section>
     `,
     data() {
@@ -92,12 +90,8 @@ export default {
                     return amount
             }
         },
-
-        navigateTo(route){
-            this.$router.push(route)
-        },
         goToApp() {
-            this.$router.push(`/book`)
+            this.$router.push(`/bookApp`)
         },
         goToReviews() {
             this.$router.push(`/bookReviews/` + this.book.id)
@@ -105,6 +99,7 @@ export default {
         deleteBook() {
             bookService.remove(this.book.id).then(
                 this.goToApp()
+
             )
         },
     },
@@ -112,8 +107,6 @@ export default {
     created() {
         const id = this.$route.params.id
         bookService.get(id).then(book => {this.book = book})  
-        
-        console.log(this.id);
     },
 
     components: {

@@ -1,3 +1,5 @@
+import { eventBus } from "../services/event-bus.service.js"
+
 export default {
     props: ['book'],
     template:`
@@ -28,6 +30,13 @@ export default {
     methods: {
         toggleIsDescExpanded() {
             this.isDescExpanded = !this.isDescExpanded
+
+            const msg = {
+                txt: `Description ${(this.isDescExpanded) ? `expanded` : `got smaller`}`,
+                type: 'success',
+            }
+            
+            eventBus.emit('user-msg', msg)
         }
     },
 }

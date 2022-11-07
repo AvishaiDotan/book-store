@@ -15,7 +15,15 @@ export default {
     },
     methods: {
         setFilter() {
-            eventBus.emit('set-filter', this.filterBy)
+            const filter = JSON.parse(JSON.stringify(this.filterBy));
+            eventBus.emit('set-filter', filter)
+
+            const msg = {
+                txt: `Filter On`,
+                type: 'success',
+            }
+            
+            eventBus.emit('user-msg', msg)
         }
     },
 

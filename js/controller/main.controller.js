@@ -1,5 +1,6 @@
 import appHeader from "../cmps/app-header.cmp.js"
 import appFooter from "../cmps/app-footer.cmp.js"
+import userMsg from "../cmps/user-msg.cmp.js"
 
 import bookDetails from "../views/book-details.cmp.js"
 import bookApp from "../views/book-app.cmp.js"
@@ -13,7 +14,8 @@ const { createRouter, createWebHashHistory } = VueRouter
 const app = createApp({
     template:`
         <app-header class="main-layout full" />
-        <main>
+        <main class="full">
+            <user-msg />
             <router-view/>
         </main>
         <app-footer class="full main-layout" />
@@ -32,7 +34,8 @@ const app = createApp({
     components: {
         bookApp,
         appHeader,
-        appFooter
+        appFooter,
+        userMsg,
     }
 })
 
@@ -50,7 +53,7 @@ const routerOptions = {
             // {name:'about'}
         },
         {
-            path: '/book',
+            path: '/bookApp',
             component: bookApp
         },
         {

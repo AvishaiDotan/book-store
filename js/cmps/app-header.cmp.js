@@ -1,8 +1,3 @@
-
-import booksFilter from "./books-filter.cmp.js"
-
-
-
 export default {
     template:`
         <header>
@@ -13,9 +8,11 @@ export default {
                         <h1>Miss's Book Shop</h1>
                     </div>
                 </router-link>
-                <books-filter class="full"/>
-                <router-link to="/book">Book Gallery</router-link>
-                <router-link to="/about">About</router-link>
+                <div class="nav-links">
+                    <router-link to="/bookApp">Book Gallery</router-link>
+                    <router-link to="/about">About</router-link>
+                </div>
+
                 
             </div>
         </header>
@@ -25,7 +22,4 @@ export default {
             return `../img/icons/open-book.png`
         }
     },
-    components: {
-        booksFilter,
-    }
 }
