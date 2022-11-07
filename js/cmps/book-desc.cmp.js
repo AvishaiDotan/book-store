@@ -1,20 +1,18 @@
 export default {
-    props: ['description'],
+    props: ['book'],
     template:`
         <section>
             <h3>{{getDescString}}</h3>
             <div className="actions-container">
                 <button @click.stop="toggleIsDescExpanded">{{ getBtnStr }}</button>
-                <button @click.stop="$emit('close')">Close</button>
-                <button @click="$emit('delete')">Delete</button>
             </div>
-            
         </section>
 
     `,
     data(){
         return {
-           isDescExpanded: false
+           isDescExpanded: false,
+           description: this.book.description
         }
     },
     computed:{

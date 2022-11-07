@@ -1,15 +1,22 @@
+
 import booksFilter from "./books-filter.cmp.js"
+
 
 
 export default {
     template:`
         <header>
             <div>
-                <div>
-                    <img :src="getIcon">
-                    <h1>Miss's Book Shop</h1>
-                </div>
-                <books-filter @set-filter="(filterBy) => {$emit('set-filter', filterBy)}" class="full"/>
+                <router-link to="/">
+                    <div>
+                        <img :src="getIcon">
+                        <h1>Miss's Book Shop</h1>
+                    </div>
+                </router-link>
+                <books-filter class="full"/>
+                <router-link to="/book">Book Gallery</router-link>
+                <router-link to="/about">About</router-link>
+                
             </div>
         </header>
     `,

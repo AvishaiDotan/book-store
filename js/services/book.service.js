@@ -1,4 +1,5 @@
 import { utilService } from './util.service.js'
+import { storageService } from './async-storage.service.js'
 
 const booksData = [
     {
@@ -441,41 +442,51 @@ const booksData = [
         "isOnSale": true
       }
     }
-  ]
+]
 
 export const bookService = {
     query,
+    get,
+    post,
+    put,
     remove,
-    save,
-    getEmptyCar,
 }
 
 
 const BOOKS_KEY = 'booksDB'
 _createBooks()
 
-function query() {
-    return utilService.loadFromStorage(BOOKS_KEY)
+function query() {  
+    return storageService.query(BOOKS_KEY)
 }
 
-function remove(carId) {
-    const cars = query()
-    const idx = cars.findIndex(car => car.id === carId)
-    cars.splice(idx, 1)
-    utilService.saveToStorage(BOOKS_KEY, cars)
+function get(bookId) {
+  return storageService.get(BOOKS_KEY, bookId)
 }
 
-function save(car) {
-    car.id = utilService.makeId()
-    const cars = query()
-    cars.push(car)
-    utilService.saveToStorage(BOOKS_KEY, cars)
-    return car
+function post(book) {
+    return storageService.post(BOOKS_KEY, book)
 }
 
-function getEmptyCar() {
-    return { id: '', vendor: '', maxSpeed: 0 }
+function put(book) {
+    return storageService.put(BOOKS_KEY, book)
 }
+
+function remove(bookId) {
+    return storageService.remove(BOOKS_KEY, bookId)
+}
+
+// function save(car) {
+//     car.id = utilService.makeId()
+//     const cars = query()
+//     cars.push(car)
+//     utilService.saveToStorage(BOOKS_KEY, cars)
+//     return car
+// }
+
+// function getEmptyBook() {
+//     return { id: '', vendor: '', maxSpeed: 0 }
+// }
 
 function _createBooks() {
     let books = utilService.loadFromStorage(BOOKS_KEY)
@@ -486,11 +497,11 @@ function _createBooks() {
     return books
 }
 
-function _createCar(vendor, maxSpeed = 250) {
-    const car = {
-        id: utilService.makeId(),
-        vendor,
-        maxSpeed,
-    }
-    return car
-}
+// function _createCar(vendor, maxSpeed = 250) {
+//     const car = {
+//         id: utilService.makeId(),
+//         vendor,
+//         maxSpeed,
+//     }
+//     return car
+// }

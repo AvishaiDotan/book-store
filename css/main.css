@@ -104,7 +104,11 @@ header div:first-child {
     display: flex;
     justify-content: space-between;
 }
+/* Layouts */
 
+main {
+    height: calc(100vh - 290px);
+}
 
 .main-layout > *:not(.full) {
     margin-right: auto;
@@ -242,6 +246,8 @@ article h3, .book-details h3 {
     width: 50px;
 }
 
+
+/* Footer */
 footer {
     height: 260px;
     background-color: var(--clr-primary);
@@ -250,6 +256,21 @@ footer {
 footer p {
     color: var(--clr-secondary);
     padding: 30px;
+}
+
+/* Home Page View */
+.home-page img{
+    height: calc(100vh - 390px);
+}
+
+/* About View */
+.about-page {
+    display: flex;
+}
+.about-page img{
+    position: absolute;
+    z-index: -1;
+    height: calc(100vh - 290px);
 }
 
 

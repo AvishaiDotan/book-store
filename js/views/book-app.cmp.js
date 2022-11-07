@@ -1,24 +1,29 @@
 import { bookService } from '../services/book.service.js'
+import { eventBus } from '../services/event-bus.service.js'
 
-import bookList from './book-list.cmp.js'
-import bookDetails from "./book-details.cmp.js"
+import bookList from '../cmps/book-list.cmp.js'
+// import bookDetails from "../cmps/book-details.cmp.js"
 
 export default {
-    props: ['filterBy'],
     template:`
-        <main>
-            <book-list v-if="!selectedBook" @select-book="selectBook" :books="booksToShow"/>
-            <book-details v-else="selectedBook" class="book-details" @close="closeBookDetails" @click="deleteBook" :book="selectedBook"/>
-        </main>
+            <book-list :books="booksToShow"/>
+            <!-- <book-details v-else="selectedBook" class="book-details" @close="closeBookDetails" @click="deleteBook" :book="selectedBook"/> -->
     `,
     data(){
         return {
             books: null,
             selectedBook: null,
+            filterBy: {}
         }
     },
     created() {
-        this.books = bookService.query()
+        bookService.query().then(books => {
+            this.books = books
+
+        }),
+        eventBus.on('set-filter', filter => {
+            this.filterBy = filter  
+        })
     },
     methods: {
         selectBook(book) {
@@ -43,7 +48,6 @@ export default {
     },
     components: {
         bookList,
-        bookDetails, 
     },
 
 }

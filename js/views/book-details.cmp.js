@@ -1,9 +1,10 @@
-import bookDesc from "./book-desc.cmp.js"
+import { bookService } from "../services/book.service.js"
+
+import bookDesc from "../cmps/book-desc.cmp.js"
 
 export default {
-    props: ['book'],
     template: `
-        <section :class="getStyleByPrice" class="book-details">
+        <section v-if="book" :class="getStyleByPrice" class="book-details">
             <div>
                 <h3><strong>Title</strong> {{ book.title }}</h3>
                 <div>
@@ -19,14 +20,18 @@ export default {
                 <p><strong>Category</strong> {{ getBookCategories }}</p>
                 <p><strong>Published Date</strong> {{ getBookPublishedDate }}</p>
                 <p><strong>Language</strong> {{ book.language }}</p>   
-                <book-desc @close="$emit('close')" @click="$emit('delete')" :description="book.description"/>
+                <book-desc :book="book"/>
+                <div className="admin-actions">
+                    <button @click.stop="returnToApp">Return</button>
+                    <button @click.stop="deleteBook">Delete</button>
+                </div>
             </div>
         </section>
 
     `,
     data() {
         return {
-
+            book: null
         }
     },
     computed: {
@@ -56,10 +61,6 @@ export default {
         },
         getStyleByPrice() {
             const { amount } = this.book.listPrice
-            // const currency = this.book.listPrice.currency
-
-            // this.getPriceInDollars(amount, currency)
-
             return {
                 red: (amount > 150),
                 green: (amount < 20)
@@ -83,6 +84,19 @@ export default {
                     return amount
             }
         },
+        returnToApp() {
+            this.$router.push(`/book`)
+        },
+        deleteBook() {
+            bookService.remove(this.book.id).then(
+                this.returnToApp()
+            )
+        }
+    },
+    
+    created() {
+        const id = this.$route.params.id
+        bookService.get(id).then(book => {this.book = book})   
     },
 
     components: {
