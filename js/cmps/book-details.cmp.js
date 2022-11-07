@@ -2,7 +2,7 @@ import bookDesc from "./book-desc.cmp.js"
 
 export default {
     props: ['book'],
-    template:`
+    template: `
         <section :class="getStyleByPrice" class="book-details">
             <div>
                 <h3><strong>Title</strong> {{ book.title }}</h3>
@@ -14,6 +14,7 @@ export default {
             <div class="details">
                 <p><strong>Abstract</strong> {{ book.subtitle }}</p>
                 <p><strong>Authors</strong> {{ getAuthors }}</p>
+                <p><strong>Price</strong> {{ getPrice }}</p>
                 <p><strong>Pages</strong> {{ getBookLength }}</p>
                 <p><strong>Category</strong> {{ getBookCategories }}</p>
                 <p><strong>Published Date</strong> {{ getBookPublishedDate }}</p>
@@ -23,12 +24,12 @@ export default {
         </section>
 
     `,
-    data(){
+    data() {
         return {
-           
+
         }
     },
-    computed:{
+    computed: {
         getAuthors() {
             return this.book.authors.map(author => `${author} `).join('')
         },
@@ -54,7 +55,7 @@ export default {
             return `../img/icons/discount.png`
         },
         getStyleByPrice() {
-            const {amount} = this.book.listPrice
+            const { amount } = this.book.listPrice
             // const currency = this.book.listPrice.currency
 
             // this.getPriceInDollars(amount, currency)
@@ -64,24 +65,29 @@ export default {
                 green: (amount < 20)
             }
         },
+        getPrice() {
+            return Math.round(this.getPriceInDollars()) + '$'
+        }
     },
     methods: {
-        getPriceInDollars(amount, currency) {
-                switch (currency) {
-                    case 'EUR':
-                        return amount * (5 / 3.4)
-                    case 'ILS':
-                        return amount * (1 / 3.4)
-                    case 'USD': 
-                        return amount
-                    default: 
-                        return amount
-                }
-            },
+        getPriceInDollars() {
+            const { amount, currencyCode } = this.book.listPrice
+            switch (currencyCode) {
+                case 'EUR':
+                    return amount * (5 / 3.4)
+                case 'ILS':
+                    return amount * (1 / 3.4)
+                case 'USD':
+                    return amount
+                default:
+                    return amount
+            }
         },
-        components: {
-            bookDesc,
-        }
+    },
 
-    
+    components: {
+        bookDesc,
+    }
+
+
 }

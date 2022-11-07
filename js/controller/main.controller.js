@@ -12,12 +12,13 @@ const app = createApp({
     `,
     data() {
         return {
-            filterBy: {}
+            filterBy: {},
+            isShowMainPage: false,
         }
     },
     methods: {
         setFilter(filter) {
-            this.filterBy = filter
+            this.filterBy = {title: filter.title, price: filter.price}
         },
     },
     components: {

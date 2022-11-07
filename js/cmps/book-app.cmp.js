@@ -36,10 +36,9 @@ export default {
     },
     computed: {
         booksToShow(){
-            const regex = new RegExp(this.filterBy.name, 'i')
-            let books =  this.books.filter(book => regex.test(book.title))
-            return books.filter(book => book.listPrice.amount <= this.filterBy.price)
-
+            if (!this.filterBy.price) return this.books
+            const regex = new RegExp(this.filterBy.title, 'i')
+            return this.books.filter(({title, listPrice: {amount}}) => regex.test(title) && (amount <= this.filterBy.price))
         }
     },
     components: {

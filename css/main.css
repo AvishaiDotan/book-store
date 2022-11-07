@@ -181,6 +181,12 @@ article h3, .book-details h3 {
     height: 416px;
 }
 
+.details section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .book-details .details strong {
     font-family: Catamaran-Bold;
     padding-block: 5px;
@@ -188,6 +194,7 @@ article h3, .book-details h3 {
 }
 
 .actions-container {
+    margin-block: 10px;
     height: 30px;
     background-color: var(--clr-secondary);
     border-radius: 2em;
@@ -244,7 +251,6 @@ footer {
 footer p {
     color: var(--clr-secondary);
     padding: 30px;
-}
 }
 
 
