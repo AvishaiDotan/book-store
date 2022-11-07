@@ -43,7 +43,6 @@ header {
     font-family: PoorStory-Regular;
     height: 130px;
     background-color: var(--clr-primary);
-    box-shadow: inset -1px -7px 1px var(--clr-secondary);
     display: flex;
 }
 
