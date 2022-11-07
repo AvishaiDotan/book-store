@@ -2,12 +2,10 @@ import { bookService } from '../services/book.service.js'
 import { eventBus } from '../services/event-bus.service.js'
 
 import bookList from '../cmps/book-list.cmp.js'
-// import bookDetails from "../cmps/book-details.cmp.js"
 
 export default {
     template:`
             <book-list :books="booksToShow"/>
-            <!-- <book-details v-else="selectedBook" class="book-details" @close="closeBookDetails" @click="deleteBook" :book="selectedBook"/> -->
     `,
     data(){
         return {
@@ -36,7 +34,7 @@ export default {
             const id = this.selectedBook.id
             this.selectedBook = null
             bookService.remove(id)
-            this.books = bookService.query()
+            // this.books = bookService.query()
         }
     },
     computed: {

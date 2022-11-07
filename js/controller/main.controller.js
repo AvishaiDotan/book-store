@@ -5,6 +5,7 @@ import bookDetails from "../views/book-details.cmp.js"
 import bookApp from "../views/book-app.cmp.js"
 import homePage from '../views/home-page.cmp.js'
 import aboutPage from '../views/about-page.cmp.js'
+import bookReviews from '../views/book-reviews.cmp.js'
 
 const { createApp } = Vue
 const { createRouter, createWebHashHistory } = VueRouter
@@ -15,7 +16,6 @@ const app = createApp({
         <main>
             <router-view/>
         </main>
-        <!-- <book-app :filter-by="filterBy"/> -->
         <app-footer class="full main-layout" />
     `,
     data() {
@@ -45,7 +45,9 @@ const routerOptions = {
         },
         {
             path: '/about',
-            component: aboutPage
+            component: aboutPage,
+            name:'about'
+            // {name:'about'}
         },
         {
             path: '/book',
@@ -53,7 +55,12 @@ const routerOptions = {
         },
         {
             path: '/book/:id',
-            component: bookDetails
+            component: bookDetails,
+            props:true
+        },
+        {
+            path: '/bookReviews/:id',
+            component: bookReviews
         },
         // {
         //     path: '/car/edit/:id?',

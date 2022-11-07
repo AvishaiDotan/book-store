@@ -450,6 +450,8 @@ export const bookService = {
     post,
     put,
     remove,
+    addReview,
+    deleteReview,
 }
 
 
@@ -476,17 +478,29 @@ function remove(bookId) {
     return storageService.remove(BOOKS_KEY, bookId)
 }
 
-// function save(car) {
-//     car.id = utilService.makeId()
-//     const cars = query()
-//     cars.push(car)
-//     utilService.saveToStorage(BOOKS_KEY, cars)
-//     return car
-// }
+function addReview(bookId, review) {
+   return storageService.get(BOOKS_KEY, bookId).then(book => {
+      review.id = utilService.makeId()
+      if(!book.reviews) {
+        book.reviews = [review]
+      } else {
+        book.reviews.unshift(review)
+      }
 
-// function getEmptyBook() {
-//     return { id: '', vendor: '', maxSpeed: 0 }
-// }
+      return storageService.put(BOOKS_KEY, book)
+    })
+}
+
+function deleteReview(bookId, reviewId) {
+    return storageService.get(BOOKS_KEY, bookId).then(book => {
+        const reviewIdx = book.reviews.findIndex(review => review.id === reviewId)
+        if (reviewIdx < 0) throw new Error('unknown id')
+
+        book.reviews.splice(reviewIdx, 1)
+        return storageService.put(BOOKS_KEY, book)
+    })
+}
+
 
 function _createBooks() {
     let books = utilService.loadFromStorage(BOOKS_KEY)
@@ -497,11 +511,4 @@ function _createBooks() {
     return books
 }
 
-// function _createCar(vendor, maxSpeed = 250) {
-//     const car = {
-//         id: utilService.makeId(),
-//         vendor,
-//         maxSpeed,
-//     }
-//     return car
-// }
+

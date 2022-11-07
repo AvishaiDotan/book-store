@@ -3,6 +3,7 @@ import { bookService } from "../services/book.service.js"
 import bookDesc from "../cmps/book-desc.cmp.js"
 
 export default {
+    props:['id'],
     template: `
         <section v-if="book" :class="getStyleByPrice" class="book-details">
             <div>
@@ -21,13 +22,20 @@ export default {
                 <p><strong>Published Date</strong> {{ getBookPublishedDate }}</p>
                 <p><strong>Language</strong> {{ book.language }}</p>   
                 <book-desc :book="book"/>
+
+                <button @click="goToReviews">
+                    <router-link :to="'/bookReviews/' + this.book.id">Add Review</router-link>
+                </button>
+                <!-- <button @click="goToReviews">add review</button> -->
                 <div className="admin-actions">
-                    <button @click.stop="returnToApp">Return</button>
+                    <button @click.stop="goToApp">Return</button>
                     <button @click.stop="deleteBook">Delete</button>
                 </div>
             </div>
-        </section>
 
+            <!-- <h4>Authors</h4>
+            <span v-for="author in book.authors">{{author}}</span> -->
+        </section>
     `,
     data() {
         return {
@@ -84,19 +92,28 @@ export default {
                     return amount
             }
         },
-        returnToApp() {
+
+        navigateTo(route){
+            this.$router.push(route)
+        },
+        goToApp() {
             this.$router.push(`/book`)
+        },
+        goToReviews() {
+            this.$router.push(`/bookReviews/` + this.book.id)
         },
         deleteBook() {
             bookService.remove(this.book.id).then(
-                this.returnToApp()
+                this.goToApp()
             )
-        }
+        },
     },
     
     created() {
         const id = this.$route.params.id
-        bookService.get(id).then(book => {this.book = book})   
+        bookService.get(id).then(book => {this.book = book})  
+        
+        console.log(this.id);
     },
 
     components: {
