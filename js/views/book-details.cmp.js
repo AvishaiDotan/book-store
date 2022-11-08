@@ -4,8 +4,19 @@ import bookDesc from "../cmps/book-desc.cmp.js"
 
 export default {
     props:['id'],
+
+    created() {
+        this.loadBook()
+    },
+
     template: `
         <section v-if="book" :class="getStyleByPrice" class="main-layout book-layout">
+            <div class="flex justify-between">
+                <router-link v-if="prevBook" :to="'/book/' + prevBook">Prev Book</router-link>
+                <router-link v-if="nextBook" :to="'/book/' + nextBook">Next Book</router-link>
+            </div>
+
+
             <div class="book-details">
                 <div>
                     <h3><strong>Title</strong> {{ book.title }}</h3>
@@ -25,9 +36,9 @@ export default {
                     <p><strong>Language</strong> {{ book.language }}</p>   
                     <book-desc :book="book"/>
 
-                    <button @click="goToReviews">add review</button>
-                    <div className="admin-actions">
+                    <div className="actions-container">
                         <button @click.stop="goToApp">Return</button>
+                        <button @click="goToReviews">Add review</button>
                         <button @click.stop="deleteBook">Delete</button>
                     </div>
                 </div>
@@ -37,22 +48,33 @@ export default {
     `,
     data() {
         return {
-            book: null
+            book: null,
+            prevBook: null,
+            nextBook: null,
         }
     },
+    watch: {
+        bookId() {
+            this.loadBook()
+        }
+    },
+
     computed: {
         getAuthors() {
             return this.book.authors.map(author => `${author} `).join('')
         },
+
         getBookLength() {
             const pageCount = this.book.pageCount
             if (pageCount >= 500) return 'Long Reading'
             else if (pageCount >= 200) return 'Decent Reading'
             else if (pageCount < 200) return 'Light Reading'
         },
+
         getBookCategories() {
             return this.book.categories.map(category => `${category} `).join('')
         },
+
         getBookPublishedDate() {
             const publishedDate = 2022 - +this.book.publishedDate
             let publishedDateStr = publishedDate + ' years ago'
@@ -62,9 +84,11 @@ export default {
 
             return publishedDateStr
         },
+
         getDiscountIcon() {
             return `../img/icons/discount.png`
         },
+
         getStyleByPrice() {
             const { amount } = this.book.listPrice
             return {
@@ -72,11 +96,29 @@ export default {
                 green: (amount < 20)
             }
         },
+
         getPrice() {
             return Math.round(this.getPriceInDollars()) + '$'
-        }
+        },
+
+        bookId() {
+            return this.$route.params.id
+        },
     },
+
     methods: {
+        loadBook() {
+            const id = this.$route.params.id
+            bookService.get(id).then(book => {
+                this.book = book
+                bookService.getNearBooksIds(this.book.id)
+                    .then(nearBooks => {
+                        this.prevBook = nearBooks.prev
+                        this.nextBook = nearBooks.next
+                    })
+            })  
+        },
+
         getPriceInDollars() {
             const { amount, currencyCode } = this.book.listPrice
             switch (currencyCode) {
@@ -104,11 +146,6 @@ export default {
         },
     },
     
-    created() {
-        const id = this.$route.params.id
-        bookService.get(id).then(book => {this.book = book})  
-    },
-
     components: {
         bookDesc,
     }

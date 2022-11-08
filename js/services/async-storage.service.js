@@ -4,6 +4,7 @@ export const storageService = {
     post,
     put,
     remove,
+    save,
 }
 
 function query(entityType, delay = 500) {
@@ -16,10 +17,10 @@ function get(entityType, entityId) {
 }
 
 function post(entityType, newEntity, append = true) {
-    newEntity.id = _makeId()
+    if (!newEntity.id) newEntity.id = _makeId()
     return query(entityType).then(entities => {
         append ? entities.push(newEntity) : entities.unshift(newEntity)
-        _save(entityType, entities)
+        save(entityType, entities)
         return newEntity
     })
 }
@@ -28,7 +29,7 @@ function put(entityType, updatedEntity) {
     return query(entityType).then(entities => {
         const idx = entities.findIndex(entity => entity.id === updatedEntity.id)
         entities.splice(idx, 1, updatedEntity)
-        _save(entityType, entities)
+        save(entityType, entities)
         return updatedEntity
     })
 }
@@ -38,17 +39,17 @@ function remove(entityType, entityId) {
         const idx = entities.findIndex(entity => entity.id === entityId)
         if (idx < 0) throw new Error(`Unknown Entity ${entityId}`)
         entities.splice(idx, 1)
-        _save(entityType, entities)
+        save(entityType, entities)
     })
 }
 
 
+function save(entityType, entities) {
+    localStorage.setItem(entityType, JSON.stringify(entities))
+}
 
 // Private functions
 
-function _save(entityType, entities) {
-    localStorage.setItem(entityType, JSON.stringify(entities))
-}
 
 function _makeId(length = 5) {
     var text = ''

@@ -16,7 +16,7 @@ export default {
             this.$router.push(`/book/${bookId}`)
 
             const msg = {
-                txt: `The book ${bookTitle} selected`,
+                txt: `The book "${bookTitle}" has selected`,
                 type: 'success',
             }
             

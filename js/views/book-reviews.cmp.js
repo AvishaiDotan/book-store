@@ -9,22 +9,26 @@ export default {
             <section v-if="book" class="book-review main-layout">
                 <div class="flex">
                     <div className="add-review">
-                        <form @submit="saveReview" class="flex flex-column">
-                            Name:
-                            <input v-model="review.name" type="text"/>
-                            <label>
-                                Rate
+                        <form @submit.prevent="saveReview" class="flex flex-column">
+                            <div class="actions-container">
+                                <span>Name:</span> 
+                                <input v-model="review.name" type="text"/>
+                            </div>
+                            
+
+                            <label class="actions-container">
+
+                                <span>Rate</span>    
                                 <select v-model="review.rate">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
+                                    <option v-for="n in 5">{{n}}</option>
                                 </select>
+                                    
+                                <div class="inline">
+                                    <span>Date:</span>
+                                    <input v-model="review.date" type="date"/>
+                                </div>
                             </label>
-                            Date:
-                            <input v-model="review.date" type="date"/>
-                            Text:
+                        
                             <textarea v-model="review.txt" cols="30" rows="10"></textarea>
                             <button>Submit!</button>
                         </form>

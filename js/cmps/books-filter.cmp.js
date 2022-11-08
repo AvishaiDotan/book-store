@@ -1,12 +1,23 @@
 import { eventBus } from '../services/event-bus.service.js'
 
+
+
 export default {
     template:`
-        <label> 
-            <input v-model="filterBy.title" type="search" placeholder="Search"/>
-            <input v-model="filterBy.price" type="range" :max="300" :min="1" />
-            <button @click.stop="setFilter" >Search</button>
-        </label>
+        <section  class="actions-container actions-container-layout">
+            
+                <label> 
+                    <input v-model="filterBy.title" type="search" placeholder="Search"/>
+                </label>
+                <label>
+                    <span>Max Price </span>
+                    <input v-model="filterBy.price" type="range" :max="300" :min="1" />
+                </label>
+                <div>
+                    <button @click.stop="setFilter" >Search</button>
+                </div> 
+
+        </section>
     `,
     data(){
         return {
@@ -26,5 +37,7 @@ export default {
             eventBus.emit('user-msg', msg)
         }
     },
+    components: {
+    }
 
 }

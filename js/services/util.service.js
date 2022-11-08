@@ -1,7 +1,23 @@
+const debounce = (func, wait) => {
+    let timeout
+  
+    return (...args) => {
+      const later = () => {
+        clearTimeout(timeout)
+        func(...args)
+    }
+  
+      clearTimeout(timeout)
+      timeout = setTimeout(later, wait)
+    }
+}
+
 export const utilService = {
     saveToStorage,
     loadFromStorage,
-    makeId
+    makeId,
+    getRandomIntInclusive,
+    debounce,
 }
 
 function saveToStorage(key, value) {
@@ -21,3 +37,10 @@ function makeId(length = 5) {
     }
     return txt
 }
+
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+

@@ -1,12 +1,14 @@
 import { bookService } from '../services/book.service.js'
 import { eventBus } from '../services/event-bus.service.js'
 
+import bookAdd from '../cmps/book-add.cmp.js'
 import bookList from '../cmps/book-list.cmp.js'
 import booksFilter from '../cmps/books-filter.cmp.js'
 
 export default {
     template:`
             <section class="book-app main-layout">
+                <book-add/>
                 <books-filter/>
                 <book-list :books="booksToShow"/>
             </section>
@@ -37,7 +39,8 @@ export default {
     },
     components: {
         bookList,
-        booksFilter
+        booksFilter,
+        bookAdd
     },
 
 }
